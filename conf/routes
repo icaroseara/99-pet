@@ -3,5 +3,23 @@
 # https://www.playframework.com/documentation/latest/ScalaRouting
 # ~~~~
 
-# An example controller showing a sample home page
-GET     /                           controllers.HomeController.index
+# Drivers
+GET        /api/drivers         controllers.DriversController.index
+GET        /api/driver/:id      controllers.DriversController.read(id: String)
+POST       /api/driver          controllers.DriversController.create
+DELETE     /api/driver/:id      controllers.DriversController.delete(id: String)
+PATCH      /api/driver/:id      controllers.DriversController.update(id: String)
+
+# Petssengers
+GET        /api/petssengers         controllers.PetssengersController.index
+GET        /api/petssenger/:id      controllers.PetssengersController.read(id: String)
+POST       /api/petssenger          controllers.PetssengersController.create
+DELETE     /api/petssenger/:id      controllers.PetssengersController.delete(id: String)
+PATCH      /api/petssenger/:id      controllers.PetssengersController.update(id: String)
+
+# Rides
+GET        /api/rides         controllers.RidesController.index
+GET        /api/ride/:id      controllers.RidesController.read(id: String)
+POST       /api/ride          controllers.RidesController.create
+DELETE     /api/ride/:id      controllers.RidesController.delete(id: String)
+PATCH      /api/ride/:id      controllers.RidesController.update(id: String)
