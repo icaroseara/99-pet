@@ -3,5 +3,8 @@
 # https://www.playframework.com/documentation/latest/ScalaRouting
 # ~~~~
 
+# Unversioned endpoints
+GET           /api/health           controllers.HealthController.isHealthy
+
 # Versioned endpoints
 ->     /api/v1    api.Routes
