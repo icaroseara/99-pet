@@ -1,10 +1,11 @@
+
 # Routes
 # This file defines all application routes (Higher priority routes first)
 # https://www.playframework.com/documentation/latest/ScalaRouting
 # ~~~~
 
 # Unversioned endpoints
-GET           /api/health           controllers.HealthController.isHealthy
+GET           /api/health           HealthController.isHealthy
 
 # Versioned endpoints
 ->     /api/v1    api.Routes
