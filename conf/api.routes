@@ -1,0 +1,14 @@
+# Drivers
+GET        /drivers/:id      controllers.DriverController.read(id: String)
+POST       /drivers          controllers.DriverController.create
+PATCH      /drivers/:id      controllers.DriverController.update(id: String)
+
+# Petssengers
+GET        /petssengers/:id      controllers.PetssengerController.read(id: String)
+POST       /petssengers          controllers.PetssengerController.create
+PATCH      /petssengers/:id      controllers.PetssengerController.update(id: String)
+
+# Rides
+POST       /rides/start                controllers.RideController.start
+POST       /rides/:id/status           controllers.RideController.status(id: String)
+POST       /rides/:id/notification     controllers.RideController.notification(id: String)
