@@ -37,7 +37,7 @@ class PetssengerController @Inject()(cc: ControllerComponents, petssengerService
         Ok(Json.toJson(petssenger))
       }.getOrElse{
         logger.info(s"Cannot find a petssenger with: id=$id")
-        NotFound(s"Cannot find a user with id=$id")
+        NotFound(s"Cannot find a petssenger with id=$id")
       }
     }
   }

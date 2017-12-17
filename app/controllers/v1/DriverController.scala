@@ -37,7 +37,7 @@ class DriverController @Inject()(cc: ControllerComponents, driverService: Driver
         Ok(Json.toJson(driver))
       }.getOrElse{
         logger.info(s"Cannot find a driver with: id=$id")
-        NotFound(s"Cannot find a user with id=$id")
+        NotFound(s"Cannot find a driver with id=$id")
       }
     }
   }
