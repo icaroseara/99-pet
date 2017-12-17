@@ -4,10 +4,10 @@ import javax.inject.Inject
 
 import repositories.DriverRepository
 import models.Driver
+
+import com.google.inject.ImplementedBy
 import reactivemongo.bson.BSONObjectID
 import reactivemongo.api.commands.WriteResult
-import com.google.inject.ImplementedBy
-
 import scala.concurrent.Future
 
 @ImplementedBy(classOf[DriverServiceImpl])

@@ -4,20 +4,20 @@ import javax.inject.Inject
 
 import models.Driver
 import models.Driver._
-import play.modules.reactivemongo.ReactiveMongoApi
+
+import com.google.inject.ImplementedBy
 import reactivemongo.api.commands.WriteResult
 import reactivemongo.bson.{BSONDocument, BSONObjectID}
 import reactivemongo.play.json._
 import reactivemongo.play.json.collection.JSONCollection
-import com.google.inject.ImplementedBy
-
+import play.modules.reactivemongo.ReactiveMongoApi
 import scala.concurrent.{ExecutionContext, Future}
 
 @ImplementedBy(classOf[DriverRepositoryImpl])
 trait DriverRepository {
   def find(id: BSONObjectID): Future[Option[Driver]]
 
-  def create(user: Driver): Future[WriteResult]
+  def create(driver: Driver): Future[WriteResult]
 
   def update(id: BSONObjectID, driver: Driver): Future[Option[Driver]]
 }
