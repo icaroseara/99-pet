@@ -1,14 +1,14 @@
 # Drivers
-GET        /drivers/:id      controllers.v1.DriverController.read(id: String)
+GET        /drivers/:id      controllers.v1.DriverController.read(id: reactivemongo.bson.BSONObjectID)
 POST       /drivers          controllers.v1.DriverController.create
-PATCH      /drivers/:id      controllers.v1.DriverController.update(id: String)
+PATCH      /drivers/:id      controllers.v1.DriverController.update(id: reactivemongo.bson.BSONObjectID)
 
 # Petssengers
-GET        /petssengers/:id      controllers.v1.PetssengerController.read(id: String)
+GET        /petssengers/:id      controllers.v1.PetssengerController.read(id: reactivemongo.bson.BSONObjectID)
 POST       /petssengers          controllers.v1.PetssengerController.create
-PATCH      /petssengers/:id      controllers.v1.PetssengerController.update(id: String)
+PATCH      /petssengers/:id      controllers.v1.PetssengerController.update(id: reactivemongo.bson.BSONObjectID)
 
 # Rides
 POST       /rides/start                controllers.v1.RideController.start
-POST       /rides/:id/status           controllers.v1.RideController.status(id: String)
-POST       /rides/:id/notification     controllers.v1.RideController.notification(id: String)
+POST       /rides/:id/status           controllers.v1.RideController.status(id: reactivemongo.bson.BSONObjectID)
+POST       /rides/:id/notification     controllers.v1.RideController.notification(id: reactivemongo.bson.BSONObjectID)

@@ -5,7 +5,7 @@
 # ~~~~
 
 # Unversioned endpoints
-GET           /api/health           HealthController.isHealthy
+GET           /api/health          controllers.HealthController.isHealthy
 
 # Versioned endpoints
 ->     /api/v1    api.Routes
