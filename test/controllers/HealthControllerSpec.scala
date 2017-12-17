@@ -7,7 +7,7 @@ import play.api.test.Helpers._
 
 class HealthControllerSpec extends PlaySpec with GuiceOneAppPerTest with Injecting {
 
-  "HealthController GET" should {
+  "Health controller" should {
     "return a healthy check state" in {
       val request = FakeRequest(GET, "/api/health")
       val health = route(app, request).get
