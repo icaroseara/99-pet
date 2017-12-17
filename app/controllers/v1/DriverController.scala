@@ -4,7 +4,8 @@ import javax.inject.Inject
 
 import play.api.mvc._
 import play.api.Logger
-import services.{DriverService, DriverServiceImpl}
+import play.api.libs.json.Json
+import services.DriverService
 import models.Driver
 import helpers.MongoExceptionHandler
 import reactivemongo.bson.BSONObjectID
@@ -28,7 +29,13 @@ class DriverController @Inject()(cc: ControllerComponents, driverService: Driver
     }.getOrElse(Future.successful(BadRequest("Invalid driver format")))
   }
 
-  def read(id: BSONObjectID) = TODO
+  def read(id: BSONObjectID) = Action.async{ req =>
+    driverService.find(id).map{ maybeDriver =>
+      maybeDriver.map{ driver =>
+        Ok(Json.toJson(driver))
+      }.getOrElse(NotFound)
+    }
+  }
 
   def update(id: BSONObjectID) = TODO
 }
