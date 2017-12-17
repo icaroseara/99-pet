@@ -8,8 +8,9 @@ case class Ride(
                    status: String = "requested",
                    petssenger: Petssenger,
                    driver: Driver,
-                   distance: Int = 0,
-                   price: Int = 0
+                   distance: Float = 0,
+                   price: Float = 0,
+                   checkpoints: List[Checkpoint] = List[Checkpoint]()
                  )
 
 object Ride {
