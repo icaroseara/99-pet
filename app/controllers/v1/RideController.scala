@@ -8,7 +8,7 @@ import play.api.libs.json.Json
 
 import helpers.MongoExceptionHandler
 import services.RideService
-import models.Ride
+import models.{Ride, Checkpoint}
 
 import scala.concurrent._
 import reactivemongo.bson.BSONObjectID
@@ -34,8 +34,8 @@ class RideController @Inject()(cc: ControllerComponents, rideService: RideServic
   }
 
   def status(id: BSONObjectID) =  Action.async(parse.json){ req =>
-    req.body.validate[Ride].map{ ride =>
-      rideService.status(id).map {
+    req.body.validate[Checkpoint].map{ checkpoint =>
+      rideService.status(id, checkpoint).map {
         case Some(ride) => Ok(Json.toJson(ride))
         case None => NotFound
       }

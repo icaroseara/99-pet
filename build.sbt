@@ -18,6 +18,5 @@ libraryDependencies ++= Seq(
 )
 
 import play.sbt.routes.RoutesKeys
-
 RoutesKeys.routesImport += "play.modules.reactivemongo.PathBindables._"
 

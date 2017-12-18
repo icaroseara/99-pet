@@ -3,7 +3,6 @@ package models
 import play.api.libs.json.{Json, OFormat}
 
 case class Checkpoint(
-                       checkpoint: String,
                        lat: BigDecimal,
                        lon: BigDecimal
                      )
