@@ -16,5 +16,8 @@ case class Ride(
                )
 
 object Ride {
+  implicit val checkpointFormat: OFormat[Checkpoint] = Json.format[Checkpoint]
+  implicit val driverFormat: OFormat[Driver] = Json.format[Driver]
+  implicit val petssengerFormat: OFormat[Petssenger] = Json.format[Petssenger]
   implicit val rideFormat: OFormat[Ride] = Json.format[Ride]
 }
