@@ -20,8 +20,6 @@ trait RideRepository {
   def start(ride: Ride): Future[WriteResult]
 
   def status(id: BSONObjectID, checkpoint: Checkpoint): Future[Option[Ride]]
-
-  def notification(id: BSONObjectID): Future[Option[Ride]]
 }
 
 class RideRepositoryImpl @Inject()(implicit ec: ExecutionContext, reactiveMongoApi: ReactiveMongoApi)
@@ -44,19 +42,6 @@ class RideRepositoryImpl @Inject()(implicit ec: ExecutionContext, reactiveMongoA
     val updateModifier = BSONDocument(
       "$set" -> BSONDocument(
         "checkpoints" -> "checkpoint"
-      )
-    )
-
-    ridesFuture.flatMap(
-      _.findAndUpdate(selector, updateModifier, fetchNewObject = true).map(_.result[Ride])
-    )
-  }
-
-  override def notification(id: BSONObjectID): Future[Option[Ride]] = {
-    val selector = BSONDocument("_id" -> id)
-    val updateModifier = BSONDocument(
-      "$set" -> BSONDocument(
-        "status" -> "notification_sent"
       )
     )
 

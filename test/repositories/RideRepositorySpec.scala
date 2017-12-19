@@ -44,5 +44,11 @@ class RideRepositorySpec @Inject()(rideRepository: RideRepository) extends PlayW
       val newRide = rideRepository.start(ride)
       newRide mustBe Ride
     }
+    "find a ride" in {
+      val query = BSONDocument()
+      val Some(rideToFind) = await(rides.flatMap(_.find(query).one[Ride]))
+      val rideIdToFind = rideToFind.id.get
+      rideRepository.find(rideIdToFind) mustBe Ride
+    }
   }
 }
