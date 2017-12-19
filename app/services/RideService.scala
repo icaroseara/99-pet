@@ -20,13 +20,17 @@ trait RideService {
 
   def status(id: BSONObjectID, checkpoint: Checkpoint): Future[Option[Ride]]
 
+  def ongoing(ride: Ride): List[Future[Option[Ride]]]
+
   def notification(id: BSONObjectID): Future[Option[Ride]]
 }
 
 class RideServiceImpl @Inject()(rideRepository: RideRepository, petClient: PetClientMock) extends RideService {
 
-  override def start(ride: Ride): Future[WriteResult] =
-    rideRepository.start(ride)
+  override def start(ride: Ride): Future[WriteResult] = rideRepository.start(ride)
+
+  override def ongoing(ride: Ride): List[Future[Option[Ride]]] =
+    rideRepository.ongoing(ride.driver, ride.petssenger)
 
   override def status(id: BSONObjectID, checkpoint: Checkpoint): Future[Option[Ride]] =
     rideRepository.status(id, checkpoint)

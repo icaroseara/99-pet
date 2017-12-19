@@ -2,7 +2,7 @@ package repositories
 
 import javax.inject.Inject
 
-import models.{Ride, Checkpoint}
+import models.{Ride, Checkpoint, Driver, Petssenger}
 import models.Ride._
 
 import com.google.inject.ImplementedBy
@@ -16,6 +16,8 @@ import scala.concurrent.{ExecutionContext, Future}
 @ImplementedBy(classOf[RideRepositoryImpl])
 trait RideRepository {
   def find(id: BSONObjectID): Future[Option[Ride]]
+
+  def ongoing(driver: Driver, petssenger: Petssenger): List[Future[Option[Ride]]]
 
   def start(ride: Ride): Future[WriteResult]
 
@@ -31,6 +33,33 @@ class RideRepositoryImpl @Inject()(implicit ec: ExecutionContext, reactiveMongoA
     val query = BSONDocument("id" -> id)
     ridesFuture.flatMap(_.find(query).one[Ride])
   }
+
+  def ongoing(driver: Driver, petssenger: Petssenger): List[Future[Option[Ride]]] = {
+    val petssengerQuery = BSONDocument(
+      "petssenger" -> BSONDocument(
+        "email" -> petssenger.email,
+        "name" -> petssenger.name
+      ),
+      "status" -> BSONDocument(
+        "$in" -> List("requested", "on_going")
+      )
+    )
+    val petssengerRide = ridesFuture.flatMap(_.find(petssengerQuery).one[Ride])
+
+    val driverQuery = BSONDocument(
+      "driver" -> BSONDocument(
+        "name" -> driver.name,
+        "email" -> driver.email,
+        "licensePlate" -> driver.licensePlate
+      ),
+      "status" -> BSONDocument(
+        "$in" -> List("requested", "on_going")
+      )
+    )
+    val driverRide = ridesFuture.flatMap(_.find(driverQuery).one[Ride])
+    List(driverRide, petssengerRide)
+  }
+
 
   override def start(ride: Ride): Future[WriteResult] = {
     ridesFuture.flatMap(_.insert(ride))
