@@ -28,7 +28,7 @@ class DriverRepositoryImpl @Inject()(implicit ec: ExecutionContext, reactiveMong
   def driversFuture: Future[JSONCollection] = reactiveMongoApi.database.map(_.collection("drivers"))
 
   override def find(id: BSONObjectID): Future[Option[Driver]] = {
-    val query = BSONDocument("_id" -> id)
+    val query = BSONDocument("id" -> id)
     driversFuture.flatMap(_.find(query).one[Driver])
   }
 
@@ -37,7 +37,7 @@ class DriverRepositoryImpl @Inject()(implicit ec: ExecutionContext, reactiveMong
   }
 
   override def update(id: BSONObjectID, driver: Driver): Future[Option[Driver]] = {
-    val selector = BSONDocument("_id" -> id)
+    val selector = BSONDocument("id" -> id)
     val updateModifier = BSONDocument(
       "$set" -> BSONDocument(
         "email" -> driver.email,

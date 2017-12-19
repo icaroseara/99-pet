@@ -28,7 +28,7 @@ class PetssengerRepositoryImpl @Inject()(implicit ec: ExecutionContext, reactive
   def petssengersFuture: Future[JSONCollection] = reactiveMongoApi.database.map(_.collection("petssengers"))
 
   override def find(id: BSONObjectID): Future[Option[Petssenger]] = {
-    val query = BSONDocument("_id" -> id)
+    val query = BSONDocument("id" -> id)
     petssengersFuture.flatMap(_.find(query).one[Petssenger])
   }
 
@@ -37,7 +37,7 @@ class PetssengerRepositoryImpl @Inject()(implicit ec: ExecutionContext, reactive
   }
 
   override def update(id: BSONObjectID, petssenger: Petssenger): Future[Option[Petssenger]] = {
-    val selector = BSONDocument("_id" -> id)
+    val selector = BSONDocument("id" -> id)
     val updateModifier = BSONDocument(
       "$set" -> BSONDocument(
         "email" -> petssenger.email
