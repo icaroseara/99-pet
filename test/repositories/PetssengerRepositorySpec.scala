@@ -7,7 +7,7 @@ import repositories.PetssengerRepository
 import org.scalatest.BeforeAndAfter
 import play.api.libs.json.Json
 import play.api.test.Helpers._
-import reactivemongo.bson.BSONDocument
+import reactivemongo.bson.{BSONDocument, BSONObjectID}
 import reactivemongo.play.json.collection.JSONCollection
 import reactivemongo.play.json._
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -42,8 +42,10 @@ class PetssengerRepositorySpec @Inject()(petssengerRepository: PetssengerReposit
       val pessengerIdToFind = petssengerToFind.id.get
       petssengerRepository.find(pessengerIdToFind) mustBe Petssenger
     }
-    "create a petseenger" in {
-
+    "create a petssenger" in {
+      val petssenger = Petssenger(None, "Caju", "caju@pets.com")
+      val newPetssenger = petssengerRepository.create(petssenger)
+      newPetssenger mustBe Petssenger
     }
     "update a petssenger" in {
       val query = BSONDocument()
