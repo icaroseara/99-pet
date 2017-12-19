@@ -46,7 +46,12 @@ class PetssengerRepositorySpec @Inject()(petssengerRepository: PetssengerReposit
 
     }
     "update a petssenger" in {
-
+      val query = BSONDocument()
+      val Some(petssengerToUpdate) = await(petssengers.flatMap(_.find(query).one[Petssenger]))
+      val petssenger = Petssenger(None, petssengerToUpdate.name , email= "pet@email.com")
+      val petssengerIdToUpdate = petssengerToUpdate.id.get
+      val newEmail = await(petssengerRepository.update(petssengerIdToUpdate, petssenger)).map(_.email)
+      newEmail mustEqual "pet@new_email.com"
     }
   }
 }
